@@ -22,7 +22,7 @@ Motor C --> Ramp initializer for light colored marble
 */
 
 task main(){
-     ramp_id = 1;
+     ramp_id = 100;
      control_motor = 1000; //change this accordingly
      aim_motor = 1000;     //change this accordingly
      cooldown = 1000;     //change this accordingly
@@ -42,21 +42,43 @@ task main(){
       else if (Sensor(IN_1) > THRESHOLD && ramp_id != 100){
            TextOut(0, LCD_LINE1, "white s"); // prints out the color of the marble sensed
            // Change the ramp to the right BIN
+              //move c motor out
+           OnRev(OUT_C, 75);
+           Wait(aim_motor);
+           Off(OUT_C);
+           Wait(cooldown);
+           //move a motor in
            OnFwd(OUT_A, 75);
            Wait(aim_motor);
            Off(OUT_A);
            Wait(cooldown);
            ramp_id = 100; //initialized the ramp's position to light marble BIN
+           // Release the marble
+           OnFwd(OUT_B, 75);
+           Wait(control_motor);
+           Off(OUT_B);
+           Wait(cooldown);
       }
       // RAMP TO DARK COLORED MARBLE BIN
       else if (Sensor(IN_1) <= THRESHOLD && ramp_id != 1){
            TextOut(0, LCD_LINE1, "black s"); // prints out the color of the marble sensed
-           // Change the ramp to the right BIN
+           // Change the ramp to the BIN
+              //move a motor out
+           OnRev(OUT_A, 75);
+           Wait(aim_motor);
+           Off(OUT_A);
+           Wait(cooldown);
+           //move C motor in
            OnFwd(OUT_C, 75);
            Wait(aim_motor);
            Off(OUT_C);
            Wait(cooldown);
            ramp_id = 1;//initialized the ramp's position to dark marble BIN
+           // Release the marble
+           OnFwd(OUT_B, 75);
+           Wait(control_motor);
+           Off(OUT_B);
+           Wait(cooldown);
 		   }
       else if (Sensor(IN_1) <= THRESHOLD && ramp_id = 1){
          TextOut(0, LCD_LINE1, "black"); // prints out the color of the marble sensed
