@@ -1,0 +1,70 @@
+// Code written by Rajdeep Singh
+// IET Final Project
+
+#define THRESHOLD 40 //defines the threshold between a dark and light marble
+
+// Define Variables
+
+int control_motor; // Motor that releases the ball
+int aim_motor;     // Motor that diverts the path of the marbles
+int cooldown;      // Cooldown, a period of complete stillness -- to make sure the laws of physics takes place
+int sidemotorplaceholder;
+
+task main(){
+     sidemotorplaceholder = 1;
+     control_motor = 1000; //change this accordingly
+     aim_motor = 1000;     //change this accordingly
+     cooldown = 1000;     //change this accordingly
+     SetSensorLight(IN_1); // initialize light sensor
+     repeat(100) // change this in final project
+     {
+     // DIRECTION 1
+      if (Sensor(IN_1) > THRESHOLD && sidemotorplaceholder == 100){
+         TextOut(0, LCD_LINE1, "white");
+         // STEP 2 - Release the marble
+         OnFwd(OUT_B, 75);
+         Wait(control_motor);
+         Off(OUT_B);
+         Wait(cooldown);
+         sidemotorplaceholder = 100;
+         }
+      else if (Sensor(IN_1) > THRESHOLD && sidemotorplaceholder != 100){
+           TextOut(0, LCD_LINE1, "white second");
+           // STEP 1 - Change the ramp to the right bucket
+           OnFwd(OUT_A, 75);
+           Wait(aim_motor);
+           Off(OUT_A);
+           Wait(cooldown);
+           sidemotorplaceholder = 100;
+      }
+      //DIRECTION 2
+      else if (Sensor(IN_1) <= THRESHOLD && sidemotorplaceholder != 1){
+           TextOut(0, LCD_LINE1, "black second");
+           // STEP 2 - Change Ramp
+           OnFwd(OUT_C, 75);
+           Wait(aim_motor);
+           Off(OUT_C);
+           Wait(cooldown);
+           sidemotorplaceholder = 1;}
+      else if (Sensor(IN_1) <= THRESHOLD && sidemotorplaceholder = 1){
+         TextOut(0, LCD_LINE1, "black");
+         // STEP 2 - Release the marble
+         OnFwd(OUT_B, 75);
+         Wait(control_motor);
+         Off(OUT_B);
+         Wait(cooldown);
+         sidemotorplaceholder = 1;
+         }
+
+      else{
+           TextOut(0, LCD_LINE1, "EORROR!");
+           //print error
+           // STEP 2 - Releases the marble (something that we don't want to do)
+           OnFwd(OUT_B, 75);
+           Wait(control_motor);
+           Off(OUT_B);
+           Wait(cooldown);
+      }
+     }
+}
+
