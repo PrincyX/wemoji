@@ -3,7 +3,7 @@ IET Final Project
 Made by Rajdeep Singh
 */
 
-#define THRESHOLD 45 //defines the threshold between a dark and light marble
+#define THRESHOLD 38 //defines the threshold between a dark and light marble
 
 // Define Variables
 
@@ -37,10 +37,9 @@ task main(){
      {
      
      // RAMP TO LIGHT COLORED MARBLE BIN
-              +
       if (Sensor(IN_1) > THRESHOLD && ramp_id == 100){
          TextOut(0, LCD_LINE1, "white"); // prints out the color of the marble sensed
-         TextOut(0, LCD_LINE2, THRESHOLD);
+         //TextOut(0, LCD_LINE2, THRESHOLD);
          // Release the marble
          OnFwd(OUT_B, ralmotsp);
          Wait(200);
@@ -50,7 +49,7 @@ task main(){
          }
       else if (Sensor(IN_1) > THRESHOLD && ramp_id != 100){
            TextOut(0, LCD_LINE1, "white s"); // prints out the color of the marble sensed
-           TextOut(0, LCD_LINE2, THRESHOLD);
+           //TextOut(0, LCD_LINE2, THRESHOLD);
            // Change the ramp to the right BIN
               //move c motor out
            OnRev(OUT_C, 100);
@@ -74,7 +73,7 @@ task main(){
       
       else if (Sensor(IN_1) <= THRESHOLD && ramp_id != 1){
            TextOut(0, LCD_LINE1, "black s"); // prints out the color of the marble sensed
-           TextOut(0, LCD_LINE2, THRESHOLD);
+           //TextOut(0, LCD_LINE2, THRESHOLD);
            // Change the ramp to the BIN
               //move a motor out
            OnRev(OUT_A, 100);
@@ -95,7 +94,7 @@ task main(){
 		   }
       else if (Sensor(IN_1) <= THRESHOLD && ramp_id = 1){
          TextOut(0, LCD_LINE1, "black"); // prints out the color of the marble sensed
-         TextOut(0, LCD_LINE2, THRESHOLD);
+         //TextOut(0, LCD_LINE2, THRESHOLD);
          // Release the marble
          OnFwd(OUT_B, ralmotsp);
          Wait(control_motor);
@@ -108,7 +107,7 @@ task main(){
 		
       else{
          TextOut(0, LCD_LINE1, "AN ERROR OCCURED. MARBLE RELEASED RAMDOMLY");
-         TextOut(0, LCD_LINE2, THRESHOLD);
+         //TextOut(0, LCD_LINE2, THRESHOLD);
          // Releases the marble randomly (something that we don't want to do)
          OnFwd(OUT_B, ralmotsp);
          Wait(control_motor);
